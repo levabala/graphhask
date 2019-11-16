@@ -95,3 +95,11 @@
 2019-11-15 17:45:44 [ThreadId 7] ERROR phoityne - "\"extractSourcePosition\" (line 2, column 6):\nunexpected end of input\nexpecting \"Stopped at \" or \"Stopped in \" [INPUT]not stopped at a breakpoint\nH>>= "
 2019-11-15 17:45:44 [ThreadId 7] ERROR phoityne - "\"extractSourcePosition\" (line 2, column 6):\nunexpected end of input\nexpecting \"Stopped at \" or \"Stopped in \" [INPUT]not stopped at a breakpoint\nH>>= "
 2019-11-15 17:45:44 [ThreadId 7] ERROR phoityne - [WARN] stepOut command is not supported. ignored.
+2019-11-15 21:07:48 [ThreadId 7] ERROR phoityne - "\"extractSourcePosition\" (line 2, column 6):\nunexpected end of input\nexpecting \"Stopped at \" or \"Stopped in \" [INPUT]1.0, 2.0, *** Exception: Prelude.read: no parse\nH>>= "
+2019-11-15 21:08:36 [ThreadId 7] ERROR phoityne - "error: Variable not in scope: accumulator"
+2019-11-15 21:08:40 [ThreadId 7] ERROR phoityne - "error: Variable not in scope: accumulator"
+2019-11-15 21:08:43 [ThreadId 7] ERROR phoityne - "error: Variable not in scope: accumulator"
+2019-11-15 21:08:44 [ThreadId 7] ERROR phoityne - "error: Variable not in scope: accumulator"
+2019-11-15 21:08:46 [ThreadId 7] ERROR phoityne - "error: Variable not in scope: accumulator"
+2019-11-15 21:08:47 [ThreadId 7] ERROR phoityne - "error: Variable not in scope: accumulator"
+2019-11-15 21:08:57 [ThreadId 7] ERROR phoityne - [WARN] stepOut command is not supported. ignored.

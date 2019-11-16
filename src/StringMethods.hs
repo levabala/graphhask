@@ -1,7 +1,7 @@
 module StringMethods where
 
-
 import           Data.Char
+import qualified Data.Vector as Vector
 
 accumulateList :: [String] -> String
 accumulateList [] = ""
@@ -17,6 +17,8 @@ joinList separator (x:xs) = a ++ b ++ c
     b = separator
     c = joinList separator xs
 
+joinVector :: String -> Vector.Vector String -> String
+joinVector s v = joinList s (Vector.toList v)
 
 splitStringWithAcc :: Char -> String -> [String] -> [String]
 splitStringWithAcc s [] l = l
