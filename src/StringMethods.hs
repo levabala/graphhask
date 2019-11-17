@@ -37,5 +37,5 @@ splitString separator string = splitStringWithAcc separator string []
 -- splitStringBy :: Char -> String -> [String]
 -- splitStringBy separator list (if separator == " " then f1 list else f2 list) : []
 
-stringifyVector :: V.Vector Float -> String
+stringifyVector :: (Show a) => V.Vector a -> String
 stringifyVector v = joinList ", " (V.toList (V.map show v))

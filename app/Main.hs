@@ -1,13 +1,20 @@
 module Main where
 
-import qualified Data.Vector.Unboxed as U
-import           Matrix
+import qualified Data.Vector   as V
+import qualified Graph         as G
+import qualified Matrix        as M
 import           StringMethods
-import           Vector2d
 
 
 main :: IO()
 main = do
-  let v = Vector2d {width=5, height=2, vector=U.fromList [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-  let el = item v 4 1
-  putStrLn $ show el
+  -- let m = M.Matrix 2 3 (V.fromList [0..6])
+  -- let s = M.stringifyMatrix m
+  -- putStrLn s
+  let s = "6 4\n\
+  \3 1\n\
+  \1 2\n\
+  \5 4\n\
+  \2 3"
+  let m = G.parseStringToAdjMatrix s
+  putStrLn M.stringifyMatrix m

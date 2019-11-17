@@ -1,31 +1,40 @@
 module Graph where
 
 -- import qualified Data.Map                    as Map
--- import qualified Data.Vector.Unboxed.Mutable as V
--- import           Matrix
--- import           StringMethods
+import           Control.Monad.Primitive (PrimMonad, PrimState)
+import qualified Data.Vector             as V
+import qualified Data.Vector.Mutable     as MV
+import qualified Matrix                  as M
+import           StringMethods
 
 
--- type AdjacencyMatrix = Matrix
--- type AdjacencyList = [(Int, Int)]
+type AdjacencyMatrix = M.Matrix
+type AdjacencyList = [(Int, Int)]
 
--- applyAdjListToMatrix :: AdjacencyList -> Matrix -> Matrix
--- applyAdjListToMatrix l m =
+adjListToMatrix :: AdjacencyList -> Int -> Int -> M.MMatrix s Float
+adjListToMatrix l w h = do
+    let m = M.MMatrix w h (MV.replicate (w * h) 0)
+    let v = M.vectorM m
+    MV.write v 1 1
 
--- parseStringToAdjMatrix :: String -> Matrix
--- parseStringToAdjMatrix s = resultMatrix
---   where
---     lines = splitString '\n' s
---     width = read $ firstLineSplitted !! 0
---       where
---         firstLineSplitted = splitString ' ' $ lines !! 0
+    M.Matrix w h (V.freeze (M.vectorM m))
 
---     height = width
 
---     adjListString = tail lines
---     adjList = map listToTuple splittedLines
---       where
---         listToTuple = \line -> (line !! 0, line !! 1)
---         splittedLines = map (splitString ' ') adjListString
+parseStringToAdjMatrix :: (PrimMonad m) => String -> M.Matrix Float -> m()
+parseStringToAdjMatrix s = resultMatrix
+  where
+    lines = splitString '\n' s
+    w = read $ firstLineSplitted !! 0
+      where
+        firstLineSplitted = splitString ' ' $ lines !! 0
 
+    h = w
+
+    adjListString = tail lines
+    adjList = map listToTuple splittedLines
+      where
+        listToTuple = \line -> (line !! 0, line !! 1)
+        splittedLines = map (splitString ' ') adjListString
+
+    resultMatrix = adjListToMatrix adjList w h
 
