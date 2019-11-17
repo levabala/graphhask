@@ -1,16 +1,13 @@
 module Main where
 
+import qualified Data.Vector.Unboxed as U
 import           Matrix
 import           StringMethods
-import           Vector
+import           Vector2d
 
 
-main :: IO ()
+main :: IO()
 main = do
-  let input = "1.0 2.0 3.0\n\
-  \4.0 5.0 6.0\n\
-  \7.0 8.0 9.0"
-
-  let m = parseStringToMatrix input
-  let s = stringifyMatrix m
-  putStrLn s
+  let v = Vector2d {width=5, height=2, vector=U.fromList [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+  let el = item v 4 1
+  putStrLn $ show el

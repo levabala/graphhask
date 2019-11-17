@@ -1,7 +1,8 @@
 module StringMethods where
 
 import           Data.Char
-import qualified Data.Vector as Vector
+import qualified Data.Vector         as V
+import qualified Data.Vector.Unboxed as U
 
 accumulateList :: [String] -> String
 accumulateList [] = ""
@@ -17,8 +18,8 @@ joinList separator (x:xs) = a ++ b ++ c
     b = separator
     c = joinList separator xs
 
-joinVector :: String -> Vector.Vector String -> String
-joinVector s v = joinList s (Vector.toList v)
+joinVector :: String -> V.Vector String -> String
+joinVector s v = joinList s (V.toList v)
 
 splitStringWithAcc :: Char -> String -> [String] -> [String]
 splitStringWithAcc s [] l = l
@@ -35,3 +36,6 @@ splitString separator string = splitStringWithAcc separator string []
   -- ((init accumulator) ++ [(head accumulator) ++ [x]])
 -- splitStringBy :: Char -> String -> [String]
 -- splitStringBy separator list (if separator == " " then f1 list else f2 list) : []
+
+stringifyVector :: V.Vector Float -> String
+stringifyVector v = joinList ", " (V.toList (V.map show v))

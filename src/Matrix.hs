@@ -1,24 +1,24 @@
 module Matrix where
 
-import qualified Data.Vector   as Vector
+import qualified Data.Vector   as V
 import           StringMethods
-import           Vector
+import qualified Vector2d      as V2d
 
-type Matrix = Vector.Vector VectorF
+type Matrix = V2d.Vector2d Float
 
-applyTo2dArray :: (a -> b) -> Vector.Vector (Vector.Vector a) -> Vector.Vector (Vector.Vector b)
-applyTo2dArray f m = Vector.map (Vector.map f) m
 
 sumMatrixes :: Matrix -> Matrix -> Matrix
-sumMatrixes m1 m2 = Vector.zipWith (Vector.zipWith (+)) m1 m2
+sumMatrixes m1 m2 = V2d.zipWith (+) m1 m2
 
 stringifyMatrix :: Matrix -> String
-stringifyMatrix m = joinVector "\n" $ Vector.map stringifyVector $ m
+stringifyMatrix m = joinVector "\n" $ V2d.vector $ V2d.map show m
 
-parseStringToMatrix :: String -> Matrix
-parseStringToMatrix s = applyTo2dArray read $ Vector.map (Vector.fromList . splitString ' ') (Vector.fromList $ splitString '\n' s )
+-- (V.map stringifyVector m)
 
-emptyMatrix :: Int -> Int -> Matrix
-emptyMatrix width height = Vector.replicate height $ emptyVector width
+-- -- parseStringToMatrix :: String -> Matrix
+-- -- parseStringToMatrix s = applyTo2dArray read $ U.map (U.fromList . splitString ' ') (U.fromList $ splitString '\n' s )
+
+-- emptyMatrix :: Int -> Int -> Matrix
+-- emptyMatrix width height = U.replicate height $ emptyVector width
 
 -- toMutableMatrix :: Matrix ->
