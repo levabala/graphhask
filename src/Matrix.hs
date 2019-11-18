@@ -13,7 +13,7 @@ item v x y = (vector v) V.! i
     i = (width v) * y + x
 
 zipWith :: (a -> a -> a) -> Matrix a -> Matrix a -> Matrix a
-zipWith p v1 v2 = v1 {vector= V.zipWith p (vector v1) (vector v2)}
+zipWith p m1 m2 = m1 {vector= V.zipWith p (vector m1) (vector m2)}
 
 map :: (a -> b) -> Matrix a -> Matrix b
 map f v = v {vector= V.map f (vector v)}
@@ -30,6 +30,11 @@ transpose m = Matrix {width=h, height=w, vector= V.fromList (Prelude.map (\i -> 
 getRowFromIndex :: Matrix a -> Int -> V.Vector a
 getRowFromIndex m i = V.slice i (width m) (vector m)
 
+getRow :: Matrix a -> Int -> V.Vector a
+getRow m i = V.slice (i * w) ((i + 1) * w) (vector m)
+    where
+      w = width m
+
 rows :: Matrix a -> [V.Vector a]
 rows m = result
     where
@@ -44,6 +49,9 @@ columns m = rows $ transpose m
 
 stringifyMatrix :: (Show a) => Matrix a -> String
 stringifyMatrix m = joinList "\n" $ Prelude.map stringifyVector (rows m)
+
+logicalAnd :: Matrix Int -> Matrix Int -> Matrix Int
+logicalAnd m1 m2 = Matrix.zipWith (\val1 val2 -> if (val1 + val2) > 0 then 1 else 0) m1 m2
 
 -- (V.map stringifyVector m)
 
