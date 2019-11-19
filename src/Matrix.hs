@@ -31,7 +31,7 @@ getRowFromIndex :: Matrix a -> Int -> V.Vector a
 getRowFromIndex m i = V.slice i (width m) (vector m)
 
 getRow :: Matrix a -> Int -> V.Vector a
-getRow m i = V.slice (i * w) ((i + 1) * w) (vector m)
+getRow m i = V.slice (i * w) w (vector m)
     where
       w = width m
 
