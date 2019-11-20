@@ -49,20 +49,20 @@ parseStringToAdjMatrix s = resultMatrix
 parseStringToAdjMatrixOrientied :: String -> M.Matrix Int
 parseStringToAdjMatrixOrientied s = symmetricalСlosure $ parseStringToAdjMatrix s
 
--- comp_dfs :: (PrimMonad m) =>
---   Int   -- component index
---   -> Int -- graph index
---   -> M.Matrix  Int -- graph adjacency matrix
---   -> MV.MVector (PrimState m) Int -- used vector
---   -> MV.MVector (PrimState m) Int -- components vector
---   -> m()
+comp_dfs :: (PrimMonad m) =>
+  Int   -- component index
+  -> Int -- graph index
+  -> M.Matrix  Int -- graph adjacency matrix
+  -> MV.MVector (PrimState m) Int -- used vector
+  -> MV.MVector (PrimState m) Int -- components vector
+  -> m()
 
 comp_dfs i v m used comp = do
   MV.write used v 1
   MV.write comp v i
 
 
-  putStrLn ("vertex: " ++ (show v))
+  -- putStrLn ("vertex: " ++ (show v))
 
   let indexes = V.fromList [0..(M.width m - 1)]
 
@@ -79,25 +79,25 @@ comp_dfs i v m used comp = do
         return ()
       )
 
--- comp_internal :: (PrimMonad m) => MV.MVector (PrimState m) Int -> MV.MVector (PrimState m) Int -> M.Matrix Int -> m Int -> Int -> m Int
+comp_internal :: (PrimMonad m) => MV.MVector (PrimState m) Int -> MV.MVector (PrimState m) Int -> M.Matrix Int -> m Int -> Int -> m Int
 comp_internal used comp m compI v   = do
   compM <- compI
   us <- MV.read used v
 
-  putStrLn ("find component for vertex: " ++ (show v) ++ (if us == 0 then " (not used)" else " (used)"))
+  -- putStrLn ("find component for vertex: " ++ (show v) ++ (if us == 0 then " (not used)" else " (used)"))
 
   if us == 0
     then do
       comp_dfs compM v m used comp
 
-      putStrLn ("compM increased: " ++ (show compM))
+      -- putStrLn ("compM increased: " ++ (show compM))
 
       return (compM + 1)
     else
       return compM
 
 
--- comp :: (PrimMonad m) => M.Matrix Int -> MV.MVector (PrimState m) Int -> MV.MVector (PrimState m) Int -> m Int
+comp :: (PrimMonad m) => M.Matrix Int -> MV.MVector (PrimState m) Int -> MV.MVector (PrimState m) Int -> m Int
 comp m used comp = do
   let indexes = [0..((M.width m) - 1)]
   foldl (comp_internal used comp m) (return 0) indexes

@@ -1,8 +1,7 @@
 module StringMethods where
 
 import           Data.Char
-import qualified Data.Vector         as V
-import qualified Data.Vector.Unboxed as U
+import qualified Data.Vector as V
 
 accumulateList :: [String] -> String
 accumulateList [] = ""
@@ -39,3 +38,18 @@ splitString separator string = splitStringWithAcc separator string []
 
 stringifyVector :: (Show a) => V.Vector a -> String
 stringifyVector v = joinList ", " (V.toList (V.map show v))
+
+countValueInVector :: (Eq a) => V.Vector a -> a -> Int
+countValueInVector v value = V.foldl (\count val -> if val == value then count + 1 else count) 0 v
+
+getValueIndexes :: V.Vector Int -> Int -> [Int]
+getValueIndexes v value = foldl (\indexes (val, index) -> if val == value then indexes ++ [index] else indexes) [] (zip (V.toList v) ([0..(V.length v)]))
+
+stringifyComponents :: V.Vector Int -> String
+stringifyComponents comp = (show (maximalComponent + 1)) ++ "\n" ++ s
+    where
+      maximalComponent = (V.maximum comp)
+      indexes = [0..maximalComponent]
+      count = length indexes
+      accumulator = (\acc val -> (\valueIndexes -> acc ++ (show $ length valueIndexes) ++ "\n" ++ (joinList " " (map (\v -> show (v + 1)) valueIndexes)) ++ (if val == (count - 1) then "" else "\n")) (getValueIndexes comp val))
+      s = foldl accumulator "" indexes
